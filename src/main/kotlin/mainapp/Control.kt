@@ -47,5 +47,4 @@ class Control {
         current_calendar.EditEventTime(current_calendar.FindEvent(year, month, day, hour, minute, second, type, title, content), year2, month2, day2, hour2, minute2, second2)
         current_calendar.EditEventContent(current_calendar.FindEvent(year2, month2, day2, hour2, minute2, second2, type, title, content), type2, title2, content2)
     }
-    fun GetEvent():
 }
