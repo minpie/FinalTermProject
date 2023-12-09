@@ -21,7 +21,7 @@ class Calendar {
 
         // 초기 연산:
         val firstDayOfMonth = GetWeekNum(year, month, 1) // 첫 날의 요일을 구함 (1: 일요일, 2: 월요일, ..., 7: 토요일) /TEST
-        val lastDayOfMonth = GetLastDayOfMonth(year, month) // 해당 월의 마지막 날짜를 구함 /TEST
+        val lastDayOfMonth = GetLastDayOfMonth(year, month) // 해당 월의 마지막 날짜를 구함
 
 
         // 표 헤더 출력
@@ -33,7 +33,7 @@ class Calendar {
         // 날짜 & 이벤트 개수 출력하기:
         for(day in 1..lastDayOfMonth){
             // 날짜 출력 (빈 날짜에는 빈 칸 출력)
-            val eventCount = FindAllEventByDate(year, month, day).size // 해당 날짜의 이벤트 수 /TEST
+            val eventCount = FindAllEventByDate(year, month, day).size // 해당 날짜의 이벤트 수
             result += "${day}${if (eventCount > 0) "\t(${eventCount})" else "\t"}\t"
             // 줄바꿈 처리 (7일마다)
             if ((firstDayOfMonth + day - 1) % 7 == 0) {
@@ -52,7 +52,6 @@ class Calendar {
         for (evnt in events){
             val check_query = arrayOf(year, month, day)
             val dates = evnt.GetWhen()
-            val check_target = arrayOf(dates[0], dates[1], dates[2])
             if(
                 (check_query[0] == dates[0]) &&
                 (check_query[1] == dates[1]) &&
@@ -118,5 +117,28 @@ class Calendar {
             return evnt.toText()
         }
         return null
+    }
+
+    fun PutAllEventByTitle(title: String): String{
+        var rtn:String = ""
+        var foundEvents = FindAllEventByTitle(title)
+        for(event in foundEvents){
+            val whenArray = event.GetWhen()
+            val formattedDate = "${whenArray[0]}년 ${whenArray[1]}월 ${whenArray[2]}일 ${whenArray[3]}시 ${whenArray[4]}분 ${whenArray[5]}초"
+            rtn += "제목: ${event.GetContent()[1]}, 내용: ${event.GetContent()[2]}, 날짜: $formattedDate"
+            rtn +=  "\n"
+        }
+        return rtn
+    }
+    fun PutAllEventByContent(content: String): String{
+        var rtn:String = ""
+        var foundEvents = FindAllEventByContent(content)
+        for(event in foundEvents){
+            val whenArray = event.GetWhen()
+            val formattedDate = "${whenArray[0]}년 ${whenArray[1]}월 ${whenArray[2]}일 ${whenArray[3]}시 ${whenArray[4]}분 ${whenArray[5]}초"
+            rtn += "제목: ${event.GetContent()[1]}, 내용: ${event.GetContent()[2]}, 날짜: $formattedDate"
+            rtn +=  "\n"
+        }
+        return rtn
     }
 }
