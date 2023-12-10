@@ -23,6 +23,7 @@ class Control {
     }
     fun LoadCalendar(fname:String){
         if(!File(fname).exists()){
+            current_calendar = Calendar()
             return
         }
         val jsonString = File(fname).readText()
